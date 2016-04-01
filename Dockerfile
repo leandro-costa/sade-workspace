@@ -9,7 +9,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install oracle-java
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
 #instal unzip && axel && x11 serve Installation
-RUN  apt-get install -q -y axel unzip xorg git
+RUN  apt-get install -q -y axel unzip xorg git wget
 
 WORKDIR /opt/jboss
 
@@ -34,7 +34,7 @@ EXPOSE 8080 9990
 ENV WILDFLY_VERSION 9.0.2
 ENV MYSQL_CONNECTOR_VERSION 5.1.38
 
-RUN axel "http://central.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar" -O /opt/jboss/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}-bin.jar
+RUN wget "http://central.maven.org/maven2/mysql/mysql-connector-java/${MYSQL_CONNECTOR_VERSION}/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}.jar" -O /opt/jboss/mysql-connector-java-${MYSQL_CONNECTOR_VERSION}-bin.jar
 
 # this is to fix "Deploying non-JDBC-compliant driver class"
 RUN mkdir -p META-INF/services
